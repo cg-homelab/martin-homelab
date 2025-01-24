@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    #ports:
+     # - 32400:32400
+     # - 1900:1900/udp
+     # - 5353:5353/udp
+     # - 8324:8324
+     # - 32410:32410/udp
+     # - 32412:32412/udp
+     # - 32413:32413/udp
+     # - 32414:32414/udp
+     # - 32469:32469
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+      - VERSION=docker
+    volumes:
+      - /opt/appdata/plex:/config
+      - /mnt/media/series:/tv
+      - /mnt/media/movies:/movies
+    restart: unless-stopped
+networks:
+  default:
+    name: homelab
+    external: true
+x-dockge:
+  urls:
+    - http://192.168.1.50:32400
+    - https://app.plex.tv

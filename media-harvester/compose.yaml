@@ -1,0 +1,87 @@
+version: "3.8"
+services:
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=Europe/Oslo
+    ports:
+      - ${PORT:-8191}:8191
+    restart: unless-stopped
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/overseerr:/config
+    ports:
+      - 5055:5055
+    restart: unless-stopped
+  readarr:
+    # books
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/readarr:/config
+      - /mnt/media/books:/books #optional
+      - /mnt/downloads/:/downloads #optional
+    ports:
+      - 8787:8787
+    restart: unless-stopped
+  radarr:
+    # Movies
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/radarr:/config
+      - /mnt/media/movies:/movies #optional
+      - /mnt/downloads/:/downloads #optional
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  sonarr:
+    # Series
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/sonarr:/config
+      - /mnt/media/series:/tv #optional
+      - /mnt/downloads/:/downloads #optional
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+networks:
+  default:
+    name: homelab
+    external: true
