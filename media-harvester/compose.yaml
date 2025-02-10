@@ -75,12 +75,28 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/sonarr:/config
-      - /mnt/media/series:/tv #optional
+      - /opt/appdata/sonarr-anime:/config
+      - /mnt/media/series/anime:/anime #optional
+      - /mnt/media/series/tv:/tv #optional
       - /mnt/downloads/:/downloads #optional
     ports:
       - 8989:8989
     restart: unless-stopped
+#  sonarr-anime:
+    # Anime
+ #   image: lscr.io/linuxserver/sonarr:latest
+  #  container_name: sonarr-anime
+  #  environment:
+  #    - PUID=1000
+  #    - PGID=1000
+  #    - TZ=Europe/Oslo
+  #  volumes:
+  #    - /opt/appdata/sonarr-anime:/config
+   #   - /mnt/media/series/anime:/anime #optional
+   #   - /mnt/downloads/:/downloads #optional
+   # ports:
+   #   - 9898:8989
+   # restart: unless-stopped
 networks:
   default:
     name: homelab

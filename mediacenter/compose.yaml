@@ -1,28 +1,43 @@
 version: "3.8"
 services:
+  # Plex media streaming platform
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     network_mode: host
-    #ports:
-     # - 32400:32400
-     # - 1900:1900/udp
-     # - 5353:5353/udp
-     # - 8324:8324
-     # - 32410:32410/udp
-     # - 32412:32412/udp
-     # - 32413:32413/udp
-     # - 32414:32414/udp
-     # - 32469:32469
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Oslo
       - VERSION=docker
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /opt/appdata/plex:/config
+      - /opt/appdata/plex-transcode:/transcode
       - /mnt/media/series:/tv
       - /mnt/media/movies:/movies
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+    restart: unless-stopped
+  # Stats for plex
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/tautulli:/config
+    ports:
+      - 8181:8181
     restart: unless-stopped
 networks:
   default:
@@ -32,3 +47,4 @@ x-dockge:
   urls:
     - http://192.168.1.50:32400
     - https://app.plex.tv
+    - http://192.168.1.50:8181

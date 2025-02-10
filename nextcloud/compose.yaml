@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /opt/appdata/nextcloud:/config
+      - /opt/appdata/nextcloud-apps:/app/www/public/customapps
+      - /mnt/nextcloud:/data
+    ports:
+      - 4443:443
+    restart: unless-stopped
+networks:
+  default:
+    name: homelab
+    external: true

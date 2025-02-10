@@ -8,6 +8,7 @@ services:
     volumes:
       - /opt/appdata/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+    restart: unless-stopped
 networks:
   default:
     name: homelab
