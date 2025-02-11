@@ -14,9 +14,10 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /opt/appdata/plex:/config
-      - /opt/appdata/plex-transcode:/transcode
+      - /dev/shm:/transcode
       - /mnt/media/series:/tv
       - /mnt/media/movies:/movies
+    runtime: nvidia
     deploy:
       resources:
         reservations:
