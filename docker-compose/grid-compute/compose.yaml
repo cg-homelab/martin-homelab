@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  foldingathome:
+    runtime: nvidia
+    image: lscr.io/linuxserver/foldingathome:latest
+    container_name: foldingathome
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+                - compute
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+      - ACCOUNT_TOKEN=${FAH_TOKEN}
+      - MACHINE_NAME=${HOSTNAME}
+      - CLI_ARGS= #optional
+    volumes:
+      - /opt/appdata/foldingathome:/config
+    ports:
+      - 7396:7396 #optional
+    restart: unless-stopped
+networks:
+  default:
+    name: homelab
+    external: true
