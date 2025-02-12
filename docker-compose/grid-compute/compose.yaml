@@ -25,7 +25,3 @@ services:
     ports:
       - 7396:7396 #optional
     restart: unless-stopped
-networks:
-  default:
-    name: homelab
-    external: true
