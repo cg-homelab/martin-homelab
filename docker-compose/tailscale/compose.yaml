@@ -16,3 +16,7 @@ services:
     cap_add:
       - net_admin
     restart: unless-stopped
+networks:
+  default:
+    name: homelab
+    external: true
