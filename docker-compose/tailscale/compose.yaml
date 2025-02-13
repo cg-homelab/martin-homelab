@@ -2,10 +2,9 @@ version: "3.7"
 services:
   tailscale:
     image: tailscale/tailscale:latest
-    hostname: tailscale-nginx
+    hostname: ${TS_HOSTNAME}
     environment:
       - TS_AUTHKEY={{secrets.tailscale_authkey}}
-      - TS_HOSTNAME=${TS_HOSTNAME}
       - TS_EXTRA_ARGS=--advertise-tags=tag:container
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SERVER_CONFIG=/config/ts-serve.json
@@ -19,9 +18,6 @@ services:
       - net_admin
       - sys_module 
     restart: unless-stopped
-    networks: 
-      name: homelab
-      ext
   networks:
     default: 
       name: homelab
