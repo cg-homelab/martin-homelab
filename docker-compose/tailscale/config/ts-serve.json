@@ -1,0 +1,41 @@
+{
+    "TCP": {
+        "443": {
+            "HTTPS": true
+        },
+        "3001": {
+            "HTTPS": true
+        },
+        "3002": {
+            "HTTPS": true
+        }
+    },
+    "Web": {
+        "${TS_CERT_DOMAIN}:443": {
+            "Handlers": {
+                "/": {
+                    "Proxy": "http://127.0.0.1:8000"
+                }
+            }
+        },
+        "${TS_CERT_DOMAIN}:3001": {
+            "Handlers": {
+                "/ws/*": {
+                    "Proxy": "http://127.0.0.1:3001"
+                }
+            }
+        },
+        "${TS_CERT_DOMAIN}:3002": {
+            "Handlers": {
+                "/ws_mp/*": {
+                    "Proxy": "http://127.0.0.1:3002"
+                }
+            }
+        }
+    },
+    "AllowFunnel": {
+        "${TS_CERT_DOMAIN}:443": false,
+        "${TS_CERT_DOMAIN}:3001": false,
+        "${TS_CERT_DOMAIN}:3002": false
+    }
+}
