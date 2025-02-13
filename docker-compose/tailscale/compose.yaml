@@ -8,18 +8,13 @@ services:
       - TS_AUTHKEY=${AUTHKEY}}
       - TS_EXTRA_ARGS=--advertise-tags=tag:container
       - TS_STATE_DIR=/var/lib/tailscale
-      #- TS_SERVER_CONFIG=/config/ts-serve.json
+      - TS_SERVE_CONFIG=/config/ts-serve.json
       - TS_USERSPACE=false
     volumes:
       - /opt/appdata/tailscale:/var/lib/tailscale
+      - ${PWD}/config:/config
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - net_admin
     restart: unless-stopped
-networks:
-  default: 
-    name: homelab
-    external: true
-volumes:
-  ts_state:
