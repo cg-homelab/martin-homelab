@@ -8,6 +8,7 @@ services:
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SERVE_CONFIG=/config/ts-serve.json
       - TS_USERSPACE=false
+      - TS_AUTH_ONCE=true
     volumes:
       - /opt/appdata/tailscale:/var/lib/tailscale
       - ${PWD}/config:/config
