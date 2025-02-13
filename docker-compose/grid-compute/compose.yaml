@@ -18,14 +18,10 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
       - ACCOUNT_TOKEN=${FAH_TOKEN}
-      - MACHINE_NAME=${HOSTNAME}
+      - MACHINE_NAME=${NAME}
       - CLI_ARGS= #optional
     volumes:
       - /opt/appdata/foldingathome:/config
     ports:
       - 7396:7396 #optional
     restart: unless-stopped
-networks:
-  default:
-    name: homelab
-    external: true
