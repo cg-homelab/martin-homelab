@@ -26,8 +26,6 @@ services:
               count: all
               capabilities:
                 - gpu
-    networks: 
-      - backend
     restart: unless-stopped
   # Stats for plex
   tautulli:
