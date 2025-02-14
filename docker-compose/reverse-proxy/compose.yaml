@@ -11,7 +11,7 @@ services:
       # <--
     volumes:
       - /run/docker.sock:/run/docker.sock:ro
-      - /opt/appdata/traefic/config/:/etc/traefik/:ro
+      - ${PWD}/config/:/etc/traefik/:ro
       - /opt/appdata/traefic/certs/:/var/traefik/certs/:rw
     environment:
       - CF_DNS_API_TOKEN=${DNS_TOKEN}  # <-- Change this to your Cloudflare API Token
