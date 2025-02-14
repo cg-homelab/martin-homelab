@@ -4,10 +4,18 @@ services:
     image: brassbeard/chmod-calculator:latest
     container_name: chmod-calculator
     restart: unless-stopped
-    ports:
-      - 47001:80
+    labels: 
+      - traefik.enable=true
+      - traefik.http.routers.chmod-https.tls=true
+      - traefik.http.routers.chmod-https.certresolver=cloudflare
+      - traefik.http.routers.chmod-https.entrypoints=websecure
+      - traefik.http.routers.chmod-https.rule=Host(`chmod.clenchedgaming.com`)
+    #ports:
+      #  - 47001:80
+    networks: 
+      - frontend
+#
 
 networks:
-  default:
-    name: frontend
+  frontend:
     external: true

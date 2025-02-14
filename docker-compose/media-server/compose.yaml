@@ -26,6 +26,8 @@ services:
               count: all
               capabilities:
                 - gpu
+    networks: 
+      - backend
     restart: unless-stopped
   # Stats for plex
   tautulli:
@@ -39,10 +41,11 @@ services:
       - /opt/appdata/tautulli:/config
     ports:
       - 8181:8181
+    networks: 
+      - backend
     restart: unless-stopped
 networks:
-  default:
-    name: homelab
+  backend:
     external: true
 x-dockge:
   urls:

@@ -31,6 +31,12 @@ services:
     image: ghcr.io/mbecker20/komodo:${COMPOSE_KOMODO_IMAGE_TAG:-latest}
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      - traefik.enable = true
+      - traefik.http.routers.komodo-https.tls=true
+      - traefik.http.routers.komodo-https.certresolver=cloudflare
+      - traefik.http.routers.komodo-https.entrypoints=websecure
+      - traefik.http.routers.komodo-https.rule=Host(`komodo.clenchedgaming.com`)
+      - traefik.http.routers.komodo-https.rule=Host(`komodo.martinellegard.dev`)
     restart: unless-stopped
     depends_on:
       - mongo
@@ -38,6 +44,7 @@ services:
       driver: ${COMPOSE_LOGGING_DRIVER:-local}
     networks:
       - default
+      - frontend
     ports:
       - 9120:9120
     env_file: ./compose.env
@@ -95,3 +102,5 @@ volumes:
 
 networks:
   default: {}
+  frontend:
+    external: true

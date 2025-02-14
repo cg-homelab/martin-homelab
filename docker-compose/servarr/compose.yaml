@@ -20,6 +20,13 @@ services:
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
+    labels: 
+      - traefik.enable = true
+      - traefik.http.routers.overseerr-https.tls=true
+      - traefik.http.routers.overseerr-https.certresolver=cloudflare
+      - traefik.http.routers.overseerr-https.entrypoints=websecure
+      - traefik.http.routers.overseerr-https.rule=Host(`overseerr.clenchedgaming.com`)
+      - traefik.http.routers.overseerr-https.rule=Host(`overseerr.martinellegard.dev`)
     environment:
       - PUID=1000
       - PGID=1000
