@@ -3,6 +3,9 @@
         "443": {
             "HTTPS": true
         },
+        "3000": {
+      "HTTPS": true
+    },
         "3001": {
             "HTTPS": true
         },
@@ -12,6 +15,13 @@
     },
     "Web": {
         "${TS_CERT_DOMAIN}:443": {
+            "Handlers": {
+                "/": {
+                    "Proxy": "http://127.0.0.1:3000"
+                }
+            }
+        },
+        "${TS_CERT_DOMAIN}:3000": {
             "Handlers": {
                 "/": {
                     "Proxy": "http://127.0.0.1:3000"
@@ -35,6 +45,7 @@
     },
     "AllowFunnel": {
         "${TS_CERT_DOMAIN}:443": false,
+        "${TS_CERT_DOMAIN}:3000": true,
         "${TS_CERT_DOMAIN}:3001": false,
         "${TS_CERT_DOMAIN}:3002": false
     }
