@@ -3,10 +3,19 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    #ports:
-    #  - 3000:3000
+    ports:
+     - 3000:3000
     volumes:
       - /opt/appdata/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     restart: unless-stopped
-    network_mode: container:tailscale
+    networks:
+        - backend
+        - frontend
+
+
+networks:
+  backend: 
+    external: true
+  frontend:
+    external: true

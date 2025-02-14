@@ -73,7 +73,7 @@ services:
     image: jshridha/docker-nzbgetvpn:latest
 networks:
   default:
-    name: homelab
+    name: backend
     external: true
 x-dockge:
   urls:

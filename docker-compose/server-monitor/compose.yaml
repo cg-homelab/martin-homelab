@@ -11,7 +11,11 @@ services:
       - /opt/appdata/notifiarr:/config
       - /var/run/utmp:/var/run/utmp
       - /etc/machine-id:/etc/machine-id
-networks: 
+networks:
+  backend:
+    external: true
+  frontend:
+    external: true
   default:
-    name: homelab
+    name: backend
     external: true

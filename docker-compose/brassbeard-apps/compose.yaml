@@ -8,6 +8,6 @@ services:
       - 47001:80
 
 networks:
-  degault:
-    name: homelab
+  default:
+    name: frontend
     external: true

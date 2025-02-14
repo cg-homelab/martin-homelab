@@ -27,6 +27,9 @@ services:
     ports:
       - 5055:5055
     restart: unless-stopped
+    networks:
+        - frontend
+        - backend
   
   # Index proxy / scanner
   prowlarr:
@@ -131,6 +134,10 @@ services:
               capabilities:
                 - gpu
 networks:
+  backend:
+    external: true
+  frontend:
+    external: true
   default:
-    name: homelab
+    name: backend
     external: true
