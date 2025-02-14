@@ -44,7 +44,7 @@ services:
     image: binhex/arch-delugevpn
     restart: unless-stopped
     networks:
-      - default
+      - backend
   docker-nzbgetvpn:
     cap_add:
       - NET_ADMIN
@@ -74,10 +74,9 @@ services:
       - GID=1000
     image: jshridha/docker-nzbgetvpn:latest
     networks:
-      - default
+      - backend
 networks:
-  default:
-    name: backend
+  backend:
     external: true
 x-dockge:
   urls:
