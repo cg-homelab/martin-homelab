@@ -12,6 +12,8 @@ services:
       - TZ=Europe/Oslo
     ports:
       - ${PORT:-8191}:8191
+    networks: 
+      - backend
     restart: unless-stopped
   
   # Handle media requests 
@@ -43,6 +45,8 @@ services:
       - /opt/appdata/prowlarr:/config
     ports:
       - 9696:9696
+    networks: 
+      - backend
     restart: unless-stopped
 
   # Book manager
@@ -60,6 +64,8 @@ services:
       - /mnt/downloads/:/downloads #optional
     ports:
       - 8787:8787
+    networks: 
+      - backend
     restart: unless-stopped
   
   # Movie manager
@@ -77,6 +83,8 @@ services:
       - /mnt/downloads/:/downloads #optional
     ports:
       - 7878:7878
+    networks: 
+      - backend
     restart: unless-stopped
   
   # Serie manager
@@ -95,6 +103,8 @@ services:
       - /mnt/downloads/:/downloads #optional
     ports:
       - 8989:8989
+    networks: 
+      - backend
     restart: unless-stopped
   
   # Media compression
@@ -105,6 +115,8 @@ services:
     ports:
       - 8265:8265 # webUI port
       - 8266:8266 # server port
+    networks: 
+      - backend
     environment:
       - TZ=Europe/London
       - PUID=1000
