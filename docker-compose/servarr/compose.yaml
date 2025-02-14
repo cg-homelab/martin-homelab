@@ -21,7 +21,7 @@ services:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
     labels: 
-      - traefik.enable = true
+      - traefik.enable=true
       - traefik.http.routers.overseerr-https.tls=true
       - traefik.http.routers.overseerr-https.certresolver=cloudflare
       - traefik.http.routers.overseerr-https.entrypoints=websecure

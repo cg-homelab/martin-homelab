@@ -30,8 +30,8 @@ services:
   core:
     image: ghcr.io/mbecker20/komodo:${COMPOSE_KOMODO_IMAGE_TAG:-latest}
     labels:
-      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
-      - traefik.enable = true
+      - komodo.skip # Prevent Komodo from stopping with StopAllContainers
+      - traefik.enable=true
       - traefik.http.routers.komodo-https.tls=true
       - traefik.http.routers.komodo-https.certresolver=cloudflare
       - traefik.http.routers.komodo-https.entrypoints=websecure
