@@ -4,18 +4,29 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     ports:
-     - 3000:3000
+      - 3000:3000
     volumes:
       - /opt/appdata/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     restart: unless-stopped
     networks:
-        - backend
-        - frontend
-
-
+      - backend
+      - frontend
+  ups-dashboard:
+    # Repo https://github.com/Brandawg93/PeaNUT/tree/main
+    image: brandawg93/peanut:latest
+    container_name: ups-dashboard
+    restart: unless-stopped
+    volumes:
+      - /opt/appdata/peanut:/config
+    ports:
+      - 3001:3001
+    environment:
+      - WEB_PORT=3001
+    networks:
+      - frontend
 networks:
-  backend: 
+  backend:
     external: true
   frontend:
     external: true

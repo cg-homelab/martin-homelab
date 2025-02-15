@@ -75,6 +75,7 @@ services:
     image: jshridha/docker-nzbgetvpn:latest
     networks:
       - backend
+    restart: unless-stopped
 networks:
   backend:
     external: true
