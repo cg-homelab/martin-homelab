@@ -6,19 +6,19 @@ services:
     ports:
       - 80:80
       - 443:443
-      # --> (Optional) Enable Dashboard, don't do in production
       - 8080:8080
       # <--
     volumes:
       - /run/docker.sock:/run/docker.sock:ro
-      - ${PWD}/config/:/etc/traefik/:ro
-      - /opt/appdata/traefic/certs/:/var/traefik/certs/:rw
+      - ./config/:/etc/traefik/:ro
+      - /opt/appdata/traefik/acme.json:/acme.json
+      - /opt/appdata/traefik/data/certs/:/var/traefik/certs/:rw
+      - /opt/appdata/traefik/origin:/certs
     environment:
-      - CF_DNS_API_TOKEN=${DNS_TOKEN}  # <-- Change this to your Cloudflare API Token
+      - CF_DNS_API_TOKEN=${DNS_TOKEN} # <-- Change this to your Cloudflare API Token
     networks:
       - frontend
     restart: unless-stopped
-    
   # app:
   #   image: jc21/nginx-proxy-manager:latest
   #   container_name: nginx-proxy-manager

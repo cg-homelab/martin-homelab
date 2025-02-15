@@ -34,18 +34,10 @@ entryPoints:
     address: :443
 
 # -- Configure your CertificateResolver here...
-certificatesResolvers:
-  cloudflare:
-    acme:
-      email: martin.ellegard@gmail.com  # <-- Change this to your email
-      storage: /var/traefik/certs/cloudflare-acme.json
-      caServer: "https://acme-v02.api.letsencrypt.org/directory"
-      dnsChallenge:
-        provider: cloudflare  # <-- (Optional) Change this to your DNS provider
-        resolvers:
-          - "1.1.1.1:53"
-          - "8.8.8.8:53"
-
+tls:
+  certificates:
+    - certFile: /certs/cert.pem
+      keyFile: /certs/cert.key
 # --> (Optional) Disable TLS Cert verification check
 # serversTransport:
 #   insecureSkipVerify: true

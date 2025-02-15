@@ -12,21 +12,19 @@ services:
       - TZ=Europe/Oslo
     ports:
       - ${PORT:-8191}:8191
-    networks: 
+    networks:
       - backend
     restart: unless-stopped
-  
   # Handle media requests 
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
-    labels: 
+    labels:
       - traefik.enable=true
-      - traefik.http.routers.overseerr-https.tls=true
-      - traefik.http.routers.overseerr-https.certresolver=cloudflare
-      - traefik.http.routers.overseerr-https.entrypoints=websecure
-      - traefik.http.routers.overseerr-https.rule=Host(`overseerr.clenchedgaming.com`)
-      - traefik.http.routers.overseerr-https.rule=Host(`overseerr.martinellegard.dev`)
+      - traefik.http.routers.overseerr.tls=true
+      #- traefik.http.routers.overseerr.tls.certresolver=cloudflare
+      - traefik.http.routers.overseerr.entrypoints=websecure
+      - traefik.http.routers.overseerr.rule=Host(`overseerr.clenchedgaming.com`)
     environment:
       - PUID=1000
       - PGID=1000
@@ -37,9 +35,8 @@ services:
       - 5055:5055
     restart: unless-stopped
     networks:
-        - frontend
-        - backend
-  
+      - frontend
+      - backend
   # Index proxy / scanner
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -52,10 +49,9 @@ services:
       - /opt/appdata/prowlarr:/config
     ports:
       - 9696:9696
-    networks: 
+    networks:
       - backend
     restart: unless-stopped
-
   # Book manager
   readarr:
     # books
@@ -71,10 +67,9 @@ services:
       - /mnt/downloads/:/downloads #optional
     ports:
       - 8787:8787
-    networks: 
+    networks:
       - backend
     restart: unless-stopped
-  
   # Movie manager
   radarr:
     # Movies
@@ -90,10 +85,9 @@ services:
       - /mnt/downloads/:/downloads #optional
     ports:
       - 7878:7878
-    networks: 
+    networks:
       - backend
     restart: unless-stopped
-  
   # Serie manager
   sonarr:
     # Series
@@ -110,10 +104,9 @@ services:
       - /mnt/downloads/:/downloads #optional
     ports:
       - 8989:8989
-    networks: 
+    networks:
       - backend
     restart: unless-stopped
-  
   # Media compression
   tdarr:
     container_name: tdarr
@@ -122,7 +115,7 @@ services:
     ports:
       - 8265:8265 # webUI port
       - 8266:8266 # server port
-    networks: 
+    networks:
       - backend
     environment:
       - TZ=Europe/London
