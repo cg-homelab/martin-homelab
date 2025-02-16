@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade apt packages
-  hosts: apt
+  hosts: all
 
   tasks:
     - name: Update packages with apt
