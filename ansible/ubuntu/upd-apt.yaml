@@ -1,6 +1,6 @@
 ---
 - name: Update apt systems
-  hosts: all
+  hosts: ubuntu
 
   tasks:
     - name: Update packages with apt
@@ -13,7 +13,7 @@
       when: ansible_pkg_mgr == 'apt'
       become: true
       ansible.builtin.apt:
-        upgrade: safe
+        upgrade: dist
 
     - name: Check if system reboot is required
       become: true
