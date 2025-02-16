@@ -25,6 +25,6 @@
       community.general.discord:
         webhook_id: "{{ notify_discord_webhook_id }}"
         webhook_token: "{{ notify_discord_webhook_token }}"
-        content: "A server needs restarting"
+        content: "A server needs restarting after updates: {{ req_name }}"
       when: reboot_required.stat.exists
   
