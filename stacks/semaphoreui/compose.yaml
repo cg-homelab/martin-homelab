@@ -1,43 +1,33 @@
 version: "3.8"
-volumes:
-  semaphore-mysql:
-    driver: local
 services:
-  mysql:
-    image: docker.io/library/mysql:8.4
-    hostname: mysql
-    volumes:
-      - semaphore-mysql:/var/lib/mysql
-    environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
-      - MYSQL_DATABASE=semaphore
-      - MYSQL_USER=semaphore
-      - MYSQL_PASSWORD=${DB_PASSWORD} # REMEMBEAR THIS!
-    restart: unless-stopped
   semaphore:
-    container_name: ansiblesemaphore
-    image: docker.io/semaphoreui/semaphore:v2.12.8
-    user: "${UID}:${GID}"
+    container_name: semaphore
+    image: semaphoreui/semaphore:v2.12.14
     ports:
-      - 3000:3000
+      - 3005:3000
     environment:
-      - SEMAPHORE_DB_USER=semaphore
-      - SEMAPHORE_DB_PASS=${DB_PASSWORD}  # REMEMBEAR THIS!
-      - SEMAPHORE_DB_HOST=mysql
-      - SEMAPHORE_DB_PORT=3306
-      - SEMAPHORE_DB_DIALECT=mysql
-      - SEMAPHORE_DB=semaphore
-      - SEMAPHORE_PLAYBOOK_PATH=/tmp/semaphore/
-      - SEMAPHORE_ADMIN_PASSWORD=${ADMIN_PASSWORD}  # change!
-      - SEMAPHORE_ADMIN_NAME=admin
-      - SEMAPHORE_ADMIN_EMAIL=admin@localhost
-      - SEMAPHORE_ADMIN=admin
-      - SEMAPHORE_ACCESS_KEY_ENCRYPTION=  # add to your access key encryption !
-      - ANSIBLE_HOST_KEY_CHECKING=false  # (optional) change to true if you want to enable host key checking
-    volumes:
-      - ./inventory/:/inventory:ro
-      - ./authorized-keys/:/authorized-keys:ro
-      - ./config/:/etc/semaphore:rw
+      SEMAPHORE_DB_DIALECT: bolt
+      SEMAPHORE_ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      SEMAPHORE_ADMIN_NAME: ${ADMIN_NAME}
+      SEMAPHORE_ADMIN_EMAIL: ${ADMIN_EMAIL}
+      SEMAPHORE_ADMIN: ${ADMIN}
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: ${ACCESS_KEY}
+      ANSIBLE_HOST_KEY_CHECKING: false
     restart: unless-stopped
-    depends_on:
-      - mysql
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - semaphore_data:/var/lib/semaphore
+      - semaphore_config:/etc/semaphore
+      - semaphore_tmp:/tmp/semaphore
+      - /opt/homelab:/opt/homelab
+volumes:
+  semaphore_data: null
+  semaphore_config: null
+  semaphore_tmp: null
+networks:
+  frontend:
+    external: true
+  backend:
+    external: true

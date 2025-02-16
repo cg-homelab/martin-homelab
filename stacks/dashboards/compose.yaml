@@ -1,5 +1,6 @@
 version: "3.8"
 services:
+  # Homelab Dashboard
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -12,6 +13,7 @@ services:
     networks:
       - backend
       - frontend
+  # UPS Dashboard
   ups-dashboard:
     # Repo https://github.com/Brandawg93/PeaNUT/tree/main
     image: brandawg93/peanut:latest
@@ -25,6 +27,30 @@ services:
       - WEB_PORT=3001
     networks:
       - frontend
+  # Docker dashboard    
+  portainer-server:
+    container_name: portainer-server
+    image: docker.io/portainer/portainer-ce:alpine
+    ports:
+      # --> (Optional) Remove when using traefik...
+      - 9000:9000
+      - 9443:9443
+    # <--
+      - 8000:8000
+    volumes:
+      #- /run/docker.sock:/var/run/docker.sock
+      - /opt/appdata/portainer-server:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      - traefik.http.routers.portainer.service=portainer
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.rule=Host(`portainer.clenchedgaming.com`)
+      - traefik.http.routers.portainer.tls=true
+    networks:
+      - frontend
+      - backend
+    restart: unless-stopped
 networks:
   backend:
     external: true
