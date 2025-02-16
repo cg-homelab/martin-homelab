@@ -30,5 +30,4 @@
         webhook_token: "{{ notify_discord_webhook_token }}"
         content: "A server needs restarting"
       when: reboot_required.stat.exists
-      - name: Send a message to the Discord channel
   
