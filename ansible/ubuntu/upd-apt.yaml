@@ -1,6 +1,9 @@
 ---
 - name: Update apt systems
   hosts: ubuntu
+  vars:
+    notify_discord_webhook_id: ''
+    notify_discord_webhook_token: ''
 
   tasks:
     - name: Update packages with apt
