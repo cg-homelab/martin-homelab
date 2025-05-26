@@ -13,9 +13,9 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - /opt/appdata/plex:/config
+      - /mnt/fast/appdata/plex:/config
       - /dev/shm:/transcode
-      - /mnt/media/series:/tv
+      - /mnt/array/media/series:/tv
       - /mnt/media/movies:/movies
     runtime: nvidia
     deploy:
@@ -36,7 +36,7 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/tautulli:/config
+      - /mnt/fast/appdata/tautulli:/config
     ports:
       - 8181:8181
     networks: 
@@ -45,8 +45,3 @@ services:
 networks:
   backend:
     external: true
-x-dockge:
-  urls:
-    - http://192.168.1.50:32400
-    - https://app.plex.tv
-    - http://192.168.1.50:8181
