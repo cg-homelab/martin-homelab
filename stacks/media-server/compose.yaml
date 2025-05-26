@@ -16,7 +16,7 @@ services:
       - /mnt/fast/appdata/plex:/config
       - /dev/shm:/transcode
       - /mnt/array/media/series:/tv
-      - /mnt/media/movies:/movies
+      - /mnt/array/media/movies:/movies
     runtime: nvidia
     deploy:
       resources:
