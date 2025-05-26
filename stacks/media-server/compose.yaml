@@ -20,6 +20,8 @@ services:
     runtime: nvidia
     deploy:
       resources:
+        limits:
+          cpu: '8.0'
         reservations:
           devices:
             - driver: nvidia
