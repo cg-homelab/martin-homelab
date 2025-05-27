@@ -12,7 +12,11 @@ services:
     restart: unless-stopped
     networks:
       - backend
-      - frontend
+      - frontend    
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: ${HOST_PATH}
+      PUID: 1000
+      PGID: 1000
   # UPS Dashboard
   ups-dashboard:
     # Repo https://github.com/Brandawg93/PeaNUT/tree/main
