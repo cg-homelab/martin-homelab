@@ -6,43 +6,49 @@ services:
     ports:
       - 180:80
       - 1443:443
+      - 1443:443/tcp
+      - 1443:443/udp
       - 8080:8080
       # <--
     volumes:
-      - /run/docker.sock:/run/docker.sock:ro
-      - ./config/:/etc/traefik/:ro
-      - /mnt/fast/appdata/traefik/acme.json:/acme.json
-      - /mnt/fast/appdata/traefik/data/certs/:/var/traefik/certs/:rw
-      - /mnt/fast/appdata/traefik/origin:/certs
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /mnt/fast/appdata/traefik/data/traefik.yml:/traefik.yml:ro # needs to be manually created
+      - /mnt/fast/appdata/traefik/data/acme.json:/acme.json # needs to be manually created
+      # - /mnt/fast/appdata/traefik/data/config.yml:/config.yml:ro
+      # - /run/docker.sock:/run/docker.sock:ro
+      # - ./config/:/etc/traefik/:ro
+      # - /mnt/fast/appdata/traefik/acme.json:/acme.json
+      # - /mnt/fast/appdata/traefik/data/certs/:/var/traefik/certs/:rw
+      # - /mnt/fast/appdata/traefik/origin:/certs
     environment:
-      - CF_DNS_API_TOKEN=${DNS_TOKEN} # <-- Change this to your Cloudflare API Token
+      - CF_DNS_API_TOKEN_FILE=/run/secrets/cf_api_token
+      - ${TRAEFIK_DASHBOARD_CREDENTIALS}
+    secrets:
+      - cf_api_token
     networks:
       - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.clenchedgaming.com`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.clenchedgaming.com`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
     restart: unless-stopped
-  # app:
-  #   image: jc21/nginx-proxy-manager:latest
-  #   container_name: nginx-proxy-manager
-  #   restart: unless-stopped
-  #   ports:
-  #     # These ports are in format <host-port>:<container-port>
-  #     - 180:80 # Public HTTP Port
-  #     - 1443:443 # Public HTTPS Port
-  #     - 181:81 # Admin Web Port
-  #     # Add any other Stream port you want to expose
-  #     # - '21:21' # FTP
-  #
-  #     # environment:
-  #     # Uncomment this if you want to change the location of
-  #     # the SQLite DB file within the container
-  #     # DB_SQLITE_FILE: "/data/database.sqlite"
-  #
-  #     # Uncomment this if IPv6 is not enabled on your host
-  #     # DISABLE_IPV6: 'true'
-  #   volumes:
-  #     - /opt/appdata/NginxProxyManager:/data
-  #     - /opt/appdata/NginxProxyManager/letsencrypt:/etc/letsencrypt
-  #   networks:
-  #     - homelab
+
+secrets:
+  cf_api_token:
+    file: /mnt/fast/appdata/traefik/cf_api_token.txt
 
 networks:
   backend:
