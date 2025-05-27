@@ -15,7 +15,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/fast/appdata/traefik/data/traefik.yml:/traefik.yml:ro # needs to be manually created
       - /mnt/fast/appdata/traefik/data/acme.json:/acme.json # needs to be manually created
-      # - /mnt/fast/appdata/traefik/data/config.yml:/config.yml:ro
+      - /mnt/fast/appdata/traefik/data/config.yml:/config.yml:ro
       # - /run/docker.sock:/run/docker.sock:ro
       # - ./config/:/etc/traefik/:ro
       # - /mnt/fast/appdata/traefik/acme.json:/acme.json
