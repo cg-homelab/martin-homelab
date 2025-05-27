@@ -24,6 +24,18 @@ services:
     image: portainer/agent:2.30.1
     networks:
       - backend
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
 networks:
   frontend:
     external: true
