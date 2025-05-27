@@ -13,8 +13,8 @@ services:
     networks:
       - backend
       - frontend    
-    env_file:
-      - stack.env
+    #env_file:
+      #  - stack.env
     #environment:
     #  HOMEPAGE_ALLOWED_HOSTS: ${HOST_PATH}
     #  PUID: 1000
