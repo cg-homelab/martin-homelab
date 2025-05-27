@@ -14,7 +14,7 @@ services:
       - backend
       - frontend    
     env_file:
-      ./stack.env
+      stack.env
     environment:
       HOMEPAGE_ALLOWED_HOSTS: ${HOST_PATH}
       PUID: 1000
