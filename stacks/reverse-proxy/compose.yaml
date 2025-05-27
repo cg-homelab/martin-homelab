@@ -4,16 +4,16 @@ services:
     image: docker.io/library/traefik:v3.3.3
     container_name: traefik
     ports:
-      - 80:80
-      - 443:443
+      - 180:80
+      - 1443:443
       - 8080:8080
       # <--
     volumes:
       - /run/docker.sock:/run/docker.sock:ro
       - ./config/:/etc/traefik/:ro
-      - /opt/appdata/traefik/acme.json:/acme.json
-      - /opt/appdata/traefik/data/certs/:/var/traefik/certs/:rw
-      - /opt/appdata/traefik/origin:/certs
+      - /mnt/fast/appdata/traefik/acme.json:/acme.json
+      - /mnt/fast/appdata/traefik/data/certs/:/var/traefik/certs/:rw
+      - /mnt/fast/appdata/traefik/origin:/certs
     environment:
       - CF_DNS_API_TOKEN=${DNS_TOKEN} # <-- Change this to your Cloudflare API Token
     networks:

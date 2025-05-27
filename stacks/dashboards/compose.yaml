@@ -7,7 +7,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /opt/appdata/homepage:/app/config # Make sure your local config directory exists
+      - /mnt/fast/appdata/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     restart: unless-stopped
     networks:
@@ -20,7 +20,7 @@ services:
     container_name: ups-dashboard
     restart: unless-stopped
     volumes:
-      - /opt/appdata/peanut:/config
+      - /mnt/fast/appdata/peanut:/config
     ports:
       - 3001:3001
     environment:
@@ -28,29 +28,29 @@ services:
     networks:
       - frontend
   # Docker dashboard    
-  portainer-server:
-    container_name: portainer-server
-    image: docker.io/portainer/portainer-ce:alpine
-    ports:
-      # --> (Optional) Remove when using traefik...
-      - 9000:9000
-      - 9443:9443
-    # <--
-      - 8000:8000
-    volumes:
-      #- /run/docker.sock:/var/run/docker.sock
-      - /opt/appdata/portainer-server:/data
-    labels:
-      - traefik.enable=true
-      - traefik.http.services.portainer.loadbalancer.server.port=9000
-      - traefik.http.routers.portainer.service=portainer
-      - traefik.http.routers.portainer.entrypoints=websecure
-      - traefik.http.routers.portainer.rule=Host(`portainer.clenchedgaming.com`)
-      - traefik.http.routers.portainer.tls=true
-    networks:
-      - frontend
-      - backend
-    restart: unless-stopped
+  # portainer-server:
+  #   container_name: portainer-server
+  #   image: docker.io/portainer/portainer-ce:alpine
+  #   ports:
+  #     # --> (Optional) Remove when using traefik...
+  #     - 9000:9000
+  #     - 9443:9443
+  #   # <--
+  #     - 8000:8000
+  #   volumes:
+  #     #- /run/docker.sock:/var/run/docker.sock
+  #     - /mnt/fast/appdata/portainer-server:/data
+  #   labels:
+  #     - traefik.enable=true
+  #     - traefik.http.services.portainer.loadbalancer.server.port=9000
+  #     - traefik.http.routers.portainer.service=portainer
+  #     - traefik.http.routers.portainer.entrypoints=websecure
+  #     - traefik.http.routers.portainer.rule=Host(`portainer.clenchedgaming.com`)
+  #     - traefik.http.routers.portainer.tls=true
+  #   networks:
+  #     - frontend
+  #     - backend
+  #   restart: unless-stopped
 networks:
   backend:
     external: true

@@ -21,8 +21,8 @@ services:
       - semaphore_data:/var/lib/semaphore
       - semaphore_config:/etc/semaphore
       - semaphore_tmp:/tmp/semaphore
-      - /opt/homelab:/opt/homelab
-volumes:
+      - /mnt/fast/appdata/semaphoreui:/mnt/appdata/semaphoreui
+volumes:  
   semaphore_data: null
   semaphore_config: null
   semaphore_tmp: null

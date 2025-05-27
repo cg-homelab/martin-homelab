@@ -14,7 +14,7 @@ services:
       #    target: /dev/shm
       #    tmpfs:
       #      size: 134217728 # 128*2^20 bytes = 128Mb
-      - /opt/databases/postgres:/var/lib/postgresql/data
+      - /mnt/fast/databases/postgres:/var/lib/postgresql/data
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_PASSWORD: ${PG_PASSWORD}

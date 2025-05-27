@@ -12,8 +12,8 @@ services:
       - 58946:58946/udp
     container_name: delugevpn
     volumes:
-      - /mnt/downloads:/downloads
-      - /opt/appdata/delugevpn:/config
+      - /mnt/array/downloads:/downloads
+      - /mnt/fast/appdata/delugevpn:/config
       - /etc/localtime:/etc/localtime:ro
     environment:
       - VPN_ENABLED=yes
@@ -52,8 +52,8 @@ services:
       - 6789:6789
     container_name: nzbgetvpn
     volumes:
-      - /mnt/downloads:/downloads
-      - /opt/appdata/nzbgetvpn:/config
+      - /mnt/array/downloads:/downloads
+      - /mnt/fast/appdata/nzbgetvpn:/config
       - /etc/localtime:/etc/localtime:ro
     environment:
       - VPN_ENABLED=yes
@@ -79,9 +79,3 @@ services:
 networks:
   backend:
     external: true
-x-dockge:
-  urls:
-    - http://192.168.1.50:8112
-    - https://deluge.clenchedgaming.com
-    - http://192.168.1.50:6789
-    - https://nzbget.clenchedgaming.com

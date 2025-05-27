@@ -30,7 +30,7 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/overseerr:/config
+      - /mnt/fast/appdata/overseerr:/config
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/prowlarr:/config
+      - /mnt/fast/appdata/prowlarr:/config
     ports:
       - 9696:9696
     networks:
@@ -62,9 +62,9 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/readarr:/config
-      - /mnt/media/books:/books #optional
-      - /mnt/downloads/:/downloads #optional
+      - /mnt/fast/appdata/readarr:/config
+      - /mnt/array/media/books:/books #optional
+      - /mnt/array/downloads/:/downloads #optional
     ports:
       - 8787:8787
     networks:
@@ -80,9 +80,9 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/radarr:/config
-      - /mnt/media/movies:/movies #optional
-      - /mnt/downloads/:/downloads #optional
+      - /mnt/fast/appdata/radarr:/config
+      - /mnt/array/media/movies:/movies #optional
+      - /mnt/array/downloads/:/downloads #optional
     ports:
       - 7878:7878
     networks:
@@ -98,10 +98,10 @@ services:
       - PGID=1000
       - TZ=Europe/Oslo
     volumes:
-      - /opt/appdata/sonarr-anime:/config
-      - /mnt/media/series/anime:/anime #optional
-      - /mnt/media/series/tv:/tv #optional
-      - /mnt/downloads/:/downloads #optional
+      - /mnt/fast/appdata/sonarr-anime:/config
+      - /mnt/array/media/series/anime:/anime #optional
+      - /mnt/array/media/series/tv:/tv #optional
+      - /mnt/array/downloads/:/downloads #optional
     ports:
       - 8989:8989
     networks:
@@ -132,11 +132,12 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - /opt/appdata/tdarr/server:/app/server
-      - /opt/appdata/tdarr/configs:/app/configs
-      - /opt/appdata/tdarr/logs:/app/logs
-      - /mnt/media:/media
-      - /opt/appdata/tdarr-transcode:/transcode
+      - /mnt/fast/appdata/tdarr/server:/app/server
+      - /mnt/fast/appdata/tdarr/configs:/app/configs
+      - /mnt/fast/appdata/tdarr/logs:/app/logs
+      - /mnt/array/media:/media
+      - /mnt/fast/appdata/tdarr-transcode:/transcode
+    runtime: nvidia
     deploy:
       resources:
         reservations:

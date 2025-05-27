@@ -10,7 +10,7 @@ services:
       - TS_USERSPACE=false
       - TS_AUTH_ONCE=true
     volumes:
-      - /opt/appdata/tailscale:/var/lib/tailscale
+      - /mtn/fast/appdata/tailscale:/var/lib/tailscale
       - ${PWD}/config:/config
     devices:
       - /dev/net/tun:/dev/net/tun
