@@ -28,7 +28,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.drouter.entrypoints=http"
-      - "traefik.http.routers.drouter.rule=Host(`trafic.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.drouter.rule=Host(`traefik.${DOMAIN_NAME}`)"
       # - "traefik.http.routers.traefik.entrypoints=http"
       # - "traefik.http.routers.traefik.rule=Host(`trafic${DOMAIN_NAME}`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
@@ -37,7 +37,7 @@ services:
       # - "traefik.http.routers.drouter.middlewares=traefik-https-redirect"
       # - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
       # - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.d-secure-router.rule=Host(`trafic.${TRAEFIK_URI}`)"
+      - "traefik.http.routers.d-secure-router.rule=Host(`traefik.${DOMAIN_NAME}`)"
       - "traefik.http.routers.d-secure-router.middlewares=traefik-auth"
       - "traefik.http.routers.d-secure-router.tls=true"
       - "traefik.http.routers.d-secure-router.service=api@internal"
