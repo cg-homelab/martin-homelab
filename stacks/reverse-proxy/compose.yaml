@@ -19,7 +19,7 @@ services:
     environment:
       - CF_DNS_API_TOKEN_FILE=/run/secrets/cf_api_token
       - ${TRAEFIK_DASHBOARD_CREDENTIALS}
-      - ${TRAEFIK_URI}
+      - TRAEFIK_URI=${TRAEFIK_URI}
     secrets:
       - cf_api_token
     networks:
