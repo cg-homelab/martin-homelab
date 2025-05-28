@@ -19,7 +19,7 @@ services:
     environment:
       - CF_DNS_API_TOKEN_FILE=/run/secrets/cf_api_token
       - ${TRAEFIK_DASHBOARD_CREDENTIALS}
-      - TRAEFIK_URI=${TRAEFIK_URI}
+      - DOMAIN_NAME=${DOMAIN_NAME}
     secrets:
       - cf_api_token
     networks:
@@ -28,18 +28,18 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_URI}`)"
+      # - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_URI}`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`${TRAEFIK_URI}`)"
+      # - "traefik.http.routers.traefik-secure.rule=Host(`${TRAEFIK_URI}`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=clenchedgaming.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=${DOMAIN_NAME}"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${DOMAIN_NAME}"
       - "traefik.http.routers.traefik-secure.service=api@internal"
     restart: unless-stopped
 
