@@ -46,15 +46,15 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.drouter.entrypoints=http"
+      # - "traefik.http.routers.drouter.entrypoints=http"
       - "traefik.http.routers.drouter.rule=Host(`deluge.${DOMAIN_NAME}`)"
       # - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      # - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.d-secure-router.rule=Host(`deluge.${DOMAIN_NAME}`)"
       # - "traefik.http.routers.d-secure-router.middlewares=traefik-auth"
-      - "traefik.http.routers.d-secure-router.tls=true"
-      - "traefik.http.routers.d-service.server.port=8112"
+      # - "traefik.http.routers.d-secure-router.tls=true"
+      # - "traefik.http.routers.d-service.server.port=8112"
     networks:
       - backend
   docker-nzbgetvpn:
@@ -88,13 +88,8 @@ services:
     image: jshridha/docker-nzbgetvpn:latest
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.drouter.entrypoints=http"
       - "traefik.http.routers.drouter.rule=Host(`nzbget.${DOMAIN_NAME}`)"
-      # - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.d-secure-router.rule=Host(`nzbget.${DOMAIN_NAME}`)"
-      # - "traefik.http.routers.d-secure-router.middlewares=traefik-auth"
       - "traefik.http.routers.d-secure-router.tls=true"
       - "traefik.http.routers.d-service.server.port=6789"
     networks:
