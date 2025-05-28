@@ -28,7 +28,7 @@ services:
       - ENABLE_SOCKS=yes
       - SOCKS_USER=admin
       - SOCKS_PASS=socks
-      - LAN_NETWORK=192.168.1.0/24
+      - LAN_NETWORK=192.168.30.0/24
       - NAME_SERVERS=84.200.69.80,37.235.1.174,1.1.1.1,37.235.1.177,84.200.70.40,1.0.0.1
       - DELUGE_DAEMON_LOG_LEVEL=info
       - DELUGE_WEB_LOG_LEVEL=info
@@ -43,6 +43,22 @@ services:
       - GID=1000
     image: binhex/arch-delugevpn
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`deluge.clenchedgaming.com`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`deluge.clenchedgaming.com`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
     networks:
       - backend
   docker-nzbgetvpn:
@@ -63,7 +79,7 @@ services:
       - VPN_CLIENT=openvpn
       - STRICT_PORT_FORWARD=no
       - ENABLE_PRIVOXY=yes
-      - LAN_NETWORK=192.168.1.0/24
+      - LAN_NETWORK=192.168.30.0/24
       - NAME_SERVERS=1.1.1.1,209.222.18.222,8.8.8.8,84.200.69.80,37.235.1.174,209.222.18.218,37.235.1.177,84.200.70.40,1.0.0.1,8.8.4.4,208.67.220.220,208.67.222.222
       - ADDITIONAL_PORTS=1234
       - DEBUG=false
@@ -73,6 +89,22 @@ services:
       - UID=1000
       - GID=1000
     image: jshridha/docker-nzbgetvpn:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`nzbget.clenchedgaming.com`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`nzbget.clenchedgaming.com`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.clenchedgaming.com"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
     networks:
       - backend
     restart: unless-stopped
