@@ -20,11 +20,12 @@ services:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.overseerr.tls=true
-      #- traefik.http.routers.overseerr.tls.certresolver=cloudflare
-      - traefik.http.routers.overseerr.entrypoints=websecure
-      - traefik.http.routers.overseerr.rule=Host(`overseerr.clenchedgaming.com`)
+      - "traefik.enable=true"
+      - "traefik.http.routers.deluge.entrypoints=web"
+      - "traefik.http.routers.deluge.rule=Host(`overseerr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.deluge-secure.tls=true"
+      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
+      - "traefik.http.routers.deluge-secure.rule=Host(`overseerr.${DOMAIN_NAME}`)"
     environment:
       - PUID=1000
       - PGID=1000
@@ -67,6 +68,13 @@ services:
       - /mnt/array/downloads/:/downloads #optional
     ports:
       - 8787:8787
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.deluge.entrypoints=web"
+      - "traefik.http.routers.deluge.rule=Host(`readarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.deluge-secure.tls=true"
+      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
+      - "traefik.http.routers.deluge-secure.rule=Host(`readarr.${DOMAIN_NAME}`)"
     networks:
       - backend
     restart: unless-stopped
@@ -85,6 +93,13 @@ services:
       - /mnt/array/downloads/:/downloads #optional
     ports:
       - 7878:7878
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.deluge.entrypoints=web"
+      - "traefik.http.routers.deluge.rule=Host(`radarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.deluge-secure.tls=true"
+      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
+      - "traefik.http.routers.deluge-secure.rule=Host(`radarr.${DOMAIN_NAME}`)"
     networks:
       - backend
     restart: unless-stopped
@@ -104,6 +119,13 @@ services:
       - /mnt/array/downloads/:/downloads #optional
     ports:
       - 8989:8989
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.deluge.entrypoints=web"
+      - "traefik.http.routers.deluge.rule=Host(`sonarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.deluge-secure.tls=true"
+      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
+      - "traefik.http.routers.deluge-secure.rule=Host(`sonarr.${DOMAIN_NAME}`)"
     networks:
       - backend
     restart: unless-stopped

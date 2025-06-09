@@ -51,15 +51,7 @@ services:
       - "traefik.http.routers.deluge-secure.tls=true"
       - "traefik.http.routers.deluge-secure.entrypoints=websecure"
       - "traefik.http.routers.deluge-secure.rule=Host(`deluge.${DOMAIN_NAME}`)"
-      # - "traefik.http.routers.drouter.entrypoints=http"
-      # - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
-      # - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      # - "traefik.http.routers.d-secure-router.rule=Host(`deluge.${DOMAIN_NAME}`)"
-      # - "traefik.http.routers.d-secure-router.middlewares=traefik-auth"
-      # - "traefik.http.routers.d-secure-router.tls=true"
-      # - "traefik.http.routers.d-service.server.port=8112"
-    networks:
+      networks:
       - backend
   docker-nzbgetvpn:
     cap_add:
