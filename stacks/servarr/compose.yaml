@@ -21,11 +21,11 @@ services:
     container_name: overseerr
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.deluge.entrypoints=web"
-      - "traefik.http.routers.deluge.rule=Host(`overseerr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.deluge-secure.tls=true"
-      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
-      - "traefik.http.routers.deluge-secure.rule=Host(`overseerr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.overseerr.entrypoints=web"
+      - "traefik.http.routers.overseerr.rule=Host(`overseerr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.overseerr-secure.tls=true"
+      - "traefik.http.routers.overseerr-secure.entrypoints=websecure"
+      - "traefik.http.routers.overseerr-secure.rule=Host(`overseerr.${DOMAIN_NAME}`)"
     environment:
       - PUID=1000
       - PGID=1000
@@ -70,11 +70,11 @@ services:
       - 8787:8787
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.deluge.entrypoints=web"
-      - "traefik.http.routers.deluge.rule=Host(`readarr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.deluge-secure.tls=true"
-      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
-      - "traefik.http.routers.deluge-secure.rule=Host(`readarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.readarr.entrypoints=web"
+      - "traefik.http.routers.readarr.rule=Host(`readarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.readarr-secure.tls=true"
+      - "traefik.http.routers.readarr-secure.entrypoints=websecure"
+      - "traefik.http.routers.readarr-secure.rule=Host(`readarr.${DOMAIN_NAME}`)"
     networks:
       - backend
     restart: unless-stopped
@@ -95,11 +95,11 @@ services:
       - 7878:7878
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.deluge.entrypoints=web"
-      - "traefik.http.routers.deluge.rule=Host(`radarr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.deluge-secure.tls=true"
-      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
-      - "traefik.http.routers.deluge-secure.rule=Host(`radarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.radarr.entrypoints=web"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.radarr-secure.tls=true"
+      - "traefik.http.routers.radarr-secure.entrypoints=websecure"
+      - "traefik.http.routers.radarr-secure.rule=Host(`radarr.${DOMAIN_NAME}`)"
     networks:
       - backend
     restart: unless-stopped
@@ -121,11 +121,11 @@ services:
       - 8989:8989
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.deluge.entrypoints=web"
-      - "traefik.http.routers.deluge.rule=Host(`sonarr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.deluge-secure.tls=true"
-      - "traefik.http.routers.deluge-secure.entrypoints=websecure"
-      - "traefik.http.routers.deluge-secure.rule=Host(`sonarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.sonarr.entrypoints=web"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.sonarr-secure.tls=true"
+      - "traefik.http.routers.sonarr-secure.entrypoints=websecure"
+      - "traefik.http.routers.sonarr-secure.rule=Host(`sonarr.${DOMAIN_NAME}`)"
     networks:
       - backend
     restart: unless-stopped
