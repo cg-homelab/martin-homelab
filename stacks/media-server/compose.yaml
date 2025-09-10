@@ -37,6 +37,13 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Oslo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.overseerr.entrypoints=web"
+      - "traefik.http.routers.overseerr.rule=Host(`tautulli.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.overseerr-secure.tls=true"
+      - "traefik.http.routers.overseerr-secure.entrypoints=websecure"
+      - "traefik.http.routers.overseerr-secure.rule=Host(`tautulli.${DOMAIN_NAME}`)"
     volumes:
       - /mnt/fast/appdata/tautulli:/config
     ports:
