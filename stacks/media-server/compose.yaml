@@ -39,11 +39,11 @@ services:
       - TZ=Europe/Oslo
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.overseerr.entrypoints=web"
-      - "traefik.http.routers.overseerr.rule=Host(`tautulli.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.overseerr-secure.tls=true"
-      - "traefik.http.routers.overseerr-secure.entrypoints=websecure"
-      - "traefik.http.routers.overseerr-secure.rule=Host(`tautulli.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.tautulli.entrypoints=web"
+      - "traefik.http.routers.tautulli.rule=Host(`tautulli.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.tautulli-secure.tls=true"
+      - "traefik.http.routers.tautulli-secure.entrypoints=websecure"
+      - "traefik.http.routers.tautulli-secure.rule=Host(`tautulli.${DOMAIN_NAME}`)"
     volumes:
       - /mnt/fast/appdata/tautulli:/config
     ports:
