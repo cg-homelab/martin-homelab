@@ -31,6 +31,7 @@ services:
       - "traefik.http.routers.homepage-secure.tls=true"
       - "traefik.http.routers.homepage-secure.entrypoints=websecure"
       - "traefik.http.routers.homepage-secure.rule=Host(`homepage.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.homepage-secure.middlewares=homepage-auth"
   # UPS Dashboard
   ups-dashboard:
     # Repo https://github.com/Brandawg93/PeaNUT/tree/main
