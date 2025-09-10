@@ -26,4 +26,12 @@ services:
       - /mnt/fast/appdata:/appdata #Added so server can be used to edit config files remotely
     ports:
       - 8443:8443
+    net
     restart: unless-stopped
+    networks:
+      - frontend
+networks:
+  backend:
+    external: true
+  frontend:
+    external: true
