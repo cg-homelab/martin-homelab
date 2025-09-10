@@ -5,11 +5,11 @@ services:
     container_name: code-server
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.code-server.entrypoints=web"
-      - "traefik.http.routers.code-server.rule=Host(`dev.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.code-server-secure.tls=true"
-      - "traefik.http.routers.code-server-secure.entrypoints=websecure"
-      - "traefik.http.routers.code-server-secure.rule=Host(`dev.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.code.entrypoints=web"
+      - "traefik.http.routers.code.rule=Host(`code.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.code-secure.tls=true"
+      - "traefik.http.routers.code-secure.entrypoints=websecure"
+      - "traefik.http.routers.code-secure.rule=Host(`code.${DOMAIN_NAME}`)"
     environment:
       - PUID=1000
       - PGID=1000
