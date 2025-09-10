@@ -13,9 +13,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /mnt/fast/appdata/traefik/data/traefik.yml:/traefik.yml:ro # needs to be manually created
+      - /mnt/fast/appdata/traefik/data/traefik.yml:/traefik.yml # needs to be manually created
       - /mnt/fast/appdata/traefik/data/acme.json:/acme.json # needs to be manually created
-      - /mnt/fast/appdata/traefik/data/config.yml:/config.yml:ro
+      - /mnt/fast/appdata/traefik/data/config.yml:/config.yml
     environment:
       - CF_DNS_API_TOKEN_FILE=/run/secrets/cf_api_token
       - ${TRAEFIK_DASHBOARD_CREDENTIALS}
