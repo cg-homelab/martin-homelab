@@ -21,15 +21,14 @@ services:
       #- PROXY_DOMAIN=code.${DOMAIN_NAME} #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
       - PWA_APPNAME=code-server #optional
+    networks:
+      - backend
     volumes:
       - /mnt/fast/appdata/code-server/config:/config
       - /mnt/fast/appdata:/appdata #Added so server can be used to edit config files remotely
     ports:
       - 8443:8443
-    net
     restart: unless-stopped
-    networks:
-      - frontend
 networks:
   backend:
     external: true
