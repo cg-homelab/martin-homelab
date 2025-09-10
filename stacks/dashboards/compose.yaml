@@ -48,6 +48,13 @@ services:
       - 3001:3001
     environment:
       - WEB_PORT=3001
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ups-dashboard.entrypoints=web"
+      - "traefik.http.routers.ups-dashboard.rule=Host(`peanut.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.ups-dashboard-secure.tls=true"
+      - "traefik.http.routers.ups-dashboard-secure.entrypoints=websecure"
+      - "traefik.http.routers.ups-dashboard-secure.rule=Host(`peanut.${DOMAIN_NAME}`)"
     networks:
       - frontend
   # Docker dashboard    
