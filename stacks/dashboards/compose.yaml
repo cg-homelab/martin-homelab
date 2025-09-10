@@ -16,13 +16,21 @@ services:
     # env_file:
        # - stack.env
     environment:
-     HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_ALLOWED_HOSTS}
-     PUID: ${PUID}
-     PGID: ${PGID}
-     HOMEPAGE_VAR_TRUENAS_URL: ${HOMEPAGE_VAR_TRUENAS_URL}
-     HOMEPAGE_VAR_TRUENAS_API_KEY: ${HOMEPAGE_VAR_TRUENAS_API_KEY} 
-     HOMEPAGE_VAR_PORTAINER_URL: ${HOMEPAGE_VAR_PORTAINER_URL}
-     HOMEPAGE_VAR_PORTAINER_API_KEY: ${HOMEPAGE_VAR_PORTAINER_API_KEY}
+      - ${USER_CREDENTIALS}
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - HOMEPAGE_VAR_TRUENAS_URL=${HOMEPAGE_VAR_TRUENAS_URL}
+      - HOMEPAGE_VAR_TRUENAS_API_KEY=${HOMEPAGE_VAR_TRUENAS_API_KEY} 
+      - HOMEPAGE_VAR_PORTAINER_URL=${HOMEPAGE_VAR_PORTAINER_URL}
+      - HOMEPAGE_VAR_PORTAINER_API_KEY=${HOMEPAGE_VAR_PORTAINER_API_KEY}
+    labels:
+      - "traefik.http.routers.homepage.entrypoints=web"
+      - "traefik.http.routers.homepage.rule=Host(`homepage.${DOMAIN_NAME}`)"
+      - "traefik.http.middlewares.homepage-auth.basicauth.users=${USER_CREDENTIALS}"
+      - "traefik.http.routers.homepage-secure.tls=true"
+      - "traefik.http.routers.homepage-secure.entrypoints=websecure"
+      - "traefik.http.routers.homepage-secure.rule=Host(`homepage.${DOMAIN_NAME}`)"
   # UPS Dashboard
   ups-dashboard:
     # Repo https://github.com/Brandawg93/PeaNUT/tree/main
