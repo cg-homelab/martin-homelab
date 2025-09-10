@@ -18,7 +18,7 @@ services:
       #- HASHED_PASSWORD= #optional
       - SUDO_PASSWORD=${SUDO_PASSWORD} #optional
       #- SUDO_PASSWORD_HASH= #optional
-      - PROXY_DOMAIN=code.${DOMAIN_NAME} #optional
+      #- PROXY_DOMAIN=code.${DOMAIN_NAME} #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
       - PWA_APPNAME=code-server #optional
     volumes:
