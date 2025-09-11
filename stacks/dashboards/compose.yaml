@@ -78,6 +78,7 @@ services:
       - 3001:3001
     environment:
       - WEB_PORT=3001
+      - TEST=YOOLLOO
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ups-dashboard.entrypoints=web"
@@ -87,30 +88,6 @@ services:
       - "traefik.http.routers.ups-dashboard-secure.rule=Host(`peanut.${DOMAIN_NAME}`)"
     networks:
       - frontend
-  # Docker dashboard    
-  # portainer-server:
-  #   container_name: portainer-server
-  #   image: docker.io/portainer/portainer-ce:alpine
-  #   ports:
-  #     # --> (Optional) Remove when using traefik...
-  #     - 9000:9000
-  #     - 9443:9443
-  #   # <--
-  #     - 8000:8000
-  #   volumes:
-  #     #- /run/docker.sock:/var/run/docker.sock
-  #     - /mnt/fast/appdata/portainer-server:/data
-  #   labels:
-  #     - traefik.enable=true
-  #     - traefik.http.services.portainer.loadbalancer.server.port=9000
-  #     - traefik.http.routers.portainer.service=portainer
-  #     - traefik.http.routers.portainer.entrypoints=websecure
-  #     - traefik.http.routers.portainer.rule=Host(`portainer.clenchedgaming.com`)
-  #     - traefik.http.routers.portainer.tls=true
-  #   networks:
-  #     - frontend
-  #     - backend
-  #   restart: unless-stopped
 networks:
   backend:
     external: true
