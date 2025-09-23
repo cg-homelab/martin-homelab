@@ -1,5 +1,31 @@
 version: "3.8"
 services:
+  surrealdb:
+    container_name: db-surreal
+    image: surrealdb/surrealdb:latest
+    restart: unless-stopped
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    entrypoint: 
+      - /surreal 
+      - start 
+      - --user
+      - $DB_USER
+      - --pass
+      - $DB_PASSWORD
+      - rocksdb:/datastore/surrealdata.db
+    ports:
+      - 8000:8000
+    volumes:
+      - /mnt/fast/databases/surreal:/datastore
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.surrealdb.entrypoints=web"
+      - "traefik.http.routers.surrealdb.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.surrealdb-secure.tls=true"
+      - "traefik.http.routers.surrealdb-secure.entrypoints=websecure"
+      - "traefik.http.routers.surrealdb-secure.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
   pg:
     container_name: db-pg
     image: postgres
@@ -24,8 +50,8 @@ services:
     restart: always
     ports:
       - 3080:8080
+
 networks:
-  timeseries: {}
   default:
     name: backend
     external: true
