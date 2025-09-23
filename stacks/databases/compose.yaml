@@ -1,29 +1,29 @@
 version: "3.8"
 services:
-  surrealdb:
-    container_name: db-surreal
-    image: surrealdb/surrealdb:latest
-    restart: unless-stopped
-    environment:
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-    command:
-      - start
-      - --log=trace
-      - --user=${DB_USER}
-      - --pass=${DB_PASSWORD}
-      - rocksdb:/container_dir/mydatabase.db
-    ports:
-      - 8000:8000
-    volumes:
-      - /mnt/fast/databases/surreal:/container_dir
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.surrealdb.entrypoints=web"
-      - "traefik.http.routers.surrealdb.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.surrealdb-secure.tls=true"
-      - "traefik.http.routers.surrealdb-secure.entrypoints=websecure"
-      - "traefik.http.routers.surrealdb-secure.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
+  # surrealdb:
+  #   container_name: db-surreal
+  #   image: surrealdb/surrealdb:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     DB_USER: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #   command:
+  #     - start
+  #     - --log=trace
+  #     - --user=${DB_USER}
+  #     - --pass=${DB_PASSWORD}
+  #     - rocksdb:/container_dir/mydatabase.db
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - /mnt/fast/databases/surreal:/container_dir
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.surrealdb.entrypoints=web"
+  #     - "traefik.http.routers.surrealdb.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
+  #     - "traefik.http.routers.surrealdb-secure.tls=true"
+  #     - "traefik.http.routers.surrealdb-secure.entrypoints=websecure"
+  #     - "traefik.http.routers.surrealdb-secure.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
   pg:
     container_name: db-pg
     image: postgres
