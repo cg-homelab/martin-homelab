@@ -4,24 +4,19 @@ services:
     container_name: db-surreal
     image: surrealdb/surrealdb:latest
     restart: unless-stopped
-    user: 1000:1000
     environment:
-      PID:  1000
-      GID:  1000
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-    entrypoint: 
-      - /surreal 
-      - start 
-      - --user
-      - $DB_USER
-      - --pass
-      - $DB_PASSWORD
-      - rocksdb:/datastore/surrealdata.db
+    command:
+      - start
+      - --log=trace
+      - --user=${DB_USER}
+      - --pass=${DB_PASSWORD}
+      - rocksdb:/container_dir/mydatabase.db
     ports:
       - 8000:8000
     volumes:
-      - /mnt/fast/databases/surreal:/datastore
+      - /mnt/fast/databases/surreal:/container_dir
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.surrealdb.entrypoints=web"
