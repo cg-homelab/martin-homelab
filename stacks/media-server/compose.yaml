@@ -3,9 +3,10 @@ services:
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
-    user: 1000:1000
+    user: 568:568
     group_add:
      - '107'
+     - '44'
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
       - /dev/dri/card0:/dev/dri/card0
@@ -13,10 +14,10 @@ services:
       - 8096:8096/tcp
       - 7359:7359/udp
     volumes:
-      - /mnt/fast/appdata/jellyfin/config:/config:rw
-      - /mnt/fast/appdata/jellyfin/cache:/cache:rw
-      - /mnt/array/media/series:/series:ro
-      - /mnt/array/media/movies:/movies:ro
+      - /mnt/fast/appdata/jellyfin/config:/config
+      - /mnt/fast/appdata/jellyfin/cache:/cache
+      - /mnt/array/media/series:/series
+      - /mnt/array/media/movies:/movies
       # Optional - extra fonts to be used during transcoding with subtitle burn-in
       # - type: bind
       #   source: /path/to/fonts
