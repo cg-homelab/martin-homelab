@@ -11,17 +11,17 @@ services:
       - TZ=Europe/Oslo
       - VERSION=docker
       - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_VISIBLE_DEVICES==compute,video,utility
     volumes:
       - /mnt/fast/appdata/plex:/config
-      - /dev/shm:/transcode
+      # - /mnt/fast/appdata/plex-transcode:/transcode
       - /mnt/array/media/series:/tv
       - /mnt/array/media/movies:/movies
     runtime: nvidia
     deploy:
       resources:
-        limits:
-          cpus: '8.0'
+        # limits:
+        #   cpus: '8.0'
         reservations:
           devices:
             - driver: nvidia
