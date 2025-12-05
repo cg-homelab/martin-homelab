@@ -1,30 +1,6 @@
 version: "3.8"
 services:
-  # surrealdb:
-  #   container_name: db-surreal
-  #   image: surrealdb/surrealdb:latest
-  #   restart: unless-stopped
-  #   environment:
-  #     DB_USER: ${DB_USER}
-  #     DB_PASSWORD: ${DB_PASSWORD}
-  #   command:
-  #     - start
-  #     - --log=trace
-  #     - --user=${DB_USER}
-  #     - --pass=${DB_PASSWORD}
-  #     - rocksdb:/container_dir/mydatabase.db
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - /mnt/fast/databases/surreal:/container_dir
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.surrealdb.entrypoints=web"
-  #     - "traefik.http.routers.surrealdb.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
-  #     - "traefik.http.routers.surrealdb-secure.tls=true"
-  #     - "traefik.http.routers.surrealdb-secure.entrypoints=websecure"
-  #     - "traefik.http.routers.surrealdb-secure.rule=Host(`surrealdb.${DOMAIN_NAME}`)"
-  pg:
+  db-pg:
     container_name: db-pg
     image: postgres
     restart: always
@@ -42,12 +18,40 @@ services:
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-  adminer:
+
+  db-ts:
+    container_name: db-ts
+    image: timescale/timescaledb-ha:pg17
+    restart: unless-stopped
+    shm_size: 2048mb
+    environment:
+      POSTGRES_DB: defaultdb
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # ports:
+    #   - "5434:5432"
+    volumes:
+      - /mnt/fast/databases/timescale:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${DB_USERNAME} -d ${DB_NAME}'"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  db-adminer:
     container_name: db-adminer
     image: adminer
-    restart: always
+    restart: unless-stopped
     ports:
       - 3080:8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adminer.entrypoints=web"
+      - "traefik.http.routers.adminer.rule=Host(`adminer.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.adminer-secure.tls=true"
+      - "traefik.http.routers.adminer-secure.entrypoints=websecure"
+      - "traefik.http.routers.adminer-secure.rule=Host(`adminer.${DOMAIN_NAME}`)"
 
 networks:
   default:
