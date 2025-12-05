@@ -32,12 +32,6 @@ services:
     #   - "5434:5432"
     volumes:
       - /mnt/fast/databases/timescale:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${DB_USERNAME} -d ${DB_NAME}'"]
-      interval: 5s
-      timeout: 5s
-      retries: 3
-      start_period: 15s
 
   db-adminer:
     container_name: db-adminer
