@@ -5,10 +5,10 @@ services:
     container_name: sm-api
     restart: unless-stopped
     ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - ${BACKEND_PORT}:3001
     environment:
       DATABASE_URL: ${DATABASE_URL}
-      BACKEND_PORT: ${BACKEND_PORT}
+      BACKEND_PORT: 3001
       FRONTEND_PORT: ${FRONTEND_PORT}
       AUTH_SECRET: ${AUTH_SECRET}
       LOG_LEVEL: debug
@@ -17,11 +17,11 @@ services:
       - backend
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sm-api.entrypoints=web"
-      - "traefik.http.routers.sm-api.rule=Host(`sm-api.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.sm-api-secure.tls=true"
-      - "traefik.http.routers.sm-api-secure.entrypoints=websecure"
-      - "traefik.http.routers.sm-api-secure.rule=Host(`sm-api.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.smapi.entrypoints=web"
+      - "traefik.http.routers.smapi.rule=Host(`sm-api.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.smapi-secure.tls=true"
+      - "traefik.http.routers.smapi-secure.entrypoints=websecure"
+      - "traefik.http.routers.smapi-secure.rule=Host(`sm-api.${DOMAIN_NAME}`)"
 networks:
   backend:
     external: true
