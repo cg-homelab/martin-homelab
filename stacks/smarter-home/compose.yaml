@@ -1,6 +1,6 @@
 services:
   # Backend Application
-  backend:
+  sm-api:
     image: zevome/smarter-home-api:latest
     container_name: sm-api
     restart: unless-stopped
