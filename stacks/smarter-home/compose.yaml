@@ -12,7 +12,7 @@ services:
       FRONTEND_PORT: ${FRONTEND_PORT}
       AUTH_SECRET: ${AUTH_SECRET}
       JWT_SECRET: ${AUTH_SECRET}
-      LOG_LEVEL: debug
+      LOG_LEVEL: ${LOG_LEVEL}
     networks:
       - frontend
       - backend
