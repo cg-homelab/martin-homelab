@@ -2,12 +2,17 @@ version: "3.8"
 services:
   db-pg:
     container_name: db-pg
-    image: postgres
+    image: postgres:18.1-alpine
     restart: always
     ports:
       - 5432:5432
     # set shared memory limit when using docker-compose
-    shm_size: 2048mb
+    # shm_size: 2048mb
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
     # or set shared memory limit when deploy via swarm stack
     volumes:
       #  - type: tmpfs
@@ -23,10 +28,14 @@ services:
     container_name: db-ts
     image: timescale/timescaledb-ha:pg17
     restart: unless-stopped
-    shm_size: 2048mb
+    # shm_size: 2048mb
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
     environment:
       POSTGRES_DB: defaultdb
-      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     # ports:
     #   - "5434:5432"
@@ -37,6 +46,11 @@ services:
     container_name: db-adminer
     image: adminer
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
     ports:
       - 3080:8080
     labels:

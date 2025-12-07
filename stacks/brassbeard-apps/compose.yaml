@@ -14,6 +14,11 @@ services:
       #  - 47001:80
     networks:
       - frontend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
 networks:
   frontend:
     external: true

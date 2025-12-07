@@ -14,6 +14,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
     restart: unless-stopped
   # Homelab Dashboard
   homepage:
@@ -26,16 +31,16 @@ services:
     restart: unless-stopped
     networks:
       - backend
-      - frontend    
+      - frontend
     # env_file:
-       # - stack.env
+    # - stack.env
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
       - PUID=${PUID}
       - PGID=${PGID}
 
       - HOMEPAGE_VAR_TRUENAS_URL=${HOMEPAGE_VAR_TRUENAS_URL}
-      - HOMEPAGE_VAR_TRUENAS_API_KEY=${HOMEPAGE_VAR_TRUENAS_API_KEY} 
+      - HOMEPAGE_VAR_TRUENAS_API_KEY=${HOMEPAGE_VAR_TRUENAS_API_KEY}
 
       - HOMEPAGE_VAR_PORTAINER_URL=${HOMEPAGE_VAR_PORTAINER_URL}
       - HOMEPAGE_VAR_PORTAINER_API_KEY=${HOMEPAGE_VAR_PORTAINER_API_KEY}
@@ -66,6 +71,11 @@ services:
       - HOMEPAGE_VAR_NZBGET_URL=${HOMEPAGE_VAR_NZBGET_URL}
       - HOMEPAGE_VAR_NZBGET_USERNAME=${HOMEPAGE_VAR_NZBGET_USERNAME}
       - HOMEPAGE_VAR_NZBGET_PASSWORD=${HOMEPAGE_VAR_NZBGET_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
   # UPS Dashboard
   ups-dashboard:
     # Repo https://github.com/Brandawg93/PeaNUT/tree/main
@@ -88,6 +98,11 @@ services:
       - "traefik.http.routers.ups-dashboard-secure.rule=Host(`peanut.${DOMAIN_NAME}`)"
     networks:
       - frontend
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
 networks:
   backend:
     external: true

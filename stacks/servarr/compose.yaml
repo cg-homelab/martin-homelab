@@ -15,7 +15,7 @@ services:
     networks:
       - backend
     restart: unless-stopped
-  # Handle media requests 
+  # Handle media requests
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
@@ -168,6 +168,10 @@ services:
               count: all
               capabilities:
                 - gpu
+        limits:
+          cpus: "8.0"
+          memory: 4G
+
 networks:
   backend:
     external: true
