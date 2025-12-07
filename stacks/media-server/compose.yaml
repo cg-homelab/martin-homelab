@@ -5,8 +5,8 @@ services:
     container_name: jellyfin
     user: 568:568
     group_add:
-     - '107'
-     - '44'
+      - "107"
+      - "44"
     runtime: nvidia
     deploy:
       resources:
@@ -28,7 +28,7 @@ services:
       #   source: /path/to/fonts
       #   target: /usr/local/share/fonts/custom
       #   read_only: true
-    restart: 'unless-stopped'
+    restart: "unless-stopped"
     networks:
       - frontend
     # Optional - alternative address used for autodiscovery
@@ -43,56 +43,56 @@ services:
       - "traefik.http.routers.jellyfin-secure.entrypoints=websecure"
       - "traefik.http.routers.jellyfin-secure.rule=Host(`jellyfin.${DOMAIN_NAME}`)"
   # Plex media streaming platform
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Oslo
-      - VERSION=docker
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES==compute,video,utility
-    volumes:
-      - /mnt/fast/appdata/plex:/config
-      # - /mnt/fast/appdata/plex-transcode:/transcode
-      - /mnt/array/media/series:/tv
-      - /mnt/array/media/movies:/movies
-    runtime: nvidia
-    deploy:
-      resources:
-        # limits:
-        #   cpus: '8.0'
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities:
-                - gpu
-    restart: unless-stopped
+  # plex:
+  #   image: lscr.io/linuxserver/plex:latest
+  #   container_name: plex
+  #   network_mode: host
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Europe/Oslo
+  #     - VERSION=docker
+  #     - NVIDIA_DRIVER_CAPABILITIES=all
+  #     - NVIDIA_VISIBLE_DEVICES==compute,video,utility
+  #   volumes:
+  #     - /mnt/fast/appdata/plex:/config
+  #     # - /mnt/fast/appdata/plex-transcode:/transcode
+  #     - /mnt/array/media/series:/tv
+  #     - /mnt/array/media/movies:/movies
+  #   runtime: nvidia
+  #   deploy:
+  #     resources:
+  #       # limits:
+  #       #   cpus: '8.0'
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: all
+  #             capabilities:
+  #               - gpu
+  #   restart: unless-stopped
   # Stats for plex
-  tautulli:
-    image: lscr.io/linuxserver/tautulli:latest
-    container_name: tautulli
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Oslo
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.tautulli.entrypoints=web"
-      - "traefik.http.routers.tautulli.rule=Host(`tautulli.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.tautulli-secure.tls=true"
-      - "traefik.http.routers.tautulli-secure.entrypoints=websecure"
-      - "traefik.http.routers.tautulli-secure.rule=Host(`tautulli.${DOMAIN_NAME}`)"
-    volumes:
-      - /mnt/fast/appdata/tautulli:/config
-    ports:
-      - 8181:8181
-    networks: 
-      - backend
-    restart: unless-stopped
+  # tautulli:
+  #   image: lscr.io/linuxserver/tautulli:latest
+  #   container_name: tautulli
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Europe/Oslo
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.tautulli.entrypoints=web"
+  #     - "traefik.http.routers.tautulli.rule=Host(`tautulli.${DOMAIN_NAME}`)"
+  #     - "traefik.http.routers.tautulli-secure.tls=true"
+  #     - "traefik.http.routers.tautulli-secure.entrypoints=websecure"
+  #     - "traefik.http.routers.tautulli-secure.rule=Host(`tautulli.${DOMAIN_NAME}`)"
+  #   volumes:
+  #     - /mnt/fast/appdata/tautulli:/config
+  #   ports:
+  #     - 8181:8181
+  #   networks:
+  #     - backend
+  #   restart: unless-stopped
 networks:
   backend:
     external: true
