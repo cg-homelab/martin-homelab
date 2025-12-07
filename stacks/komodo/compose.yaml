@@ -34,8 +34,7 @@ services:
       - traefik.http.routers.komodo-https.tls=true
       - traefik.http.routers.komodo-https.certresolver=cloudflare
       - traefik.http.routers.komodo-https.entrypoints=websecure
-      - traefik.http.routers.komodo-https.rule=Host(`komodo.clenchedgaming.com`)
-      - traefik.http.routers.komodo-https.rule=Host(`komodo.martinellegard.dev`)
+      - traefik.http.routers.komodo-https.rule=Host(`komodo.${DOMAIN_NAME}`)
     restart: unless-stopped
     depends_on:
       - mongo

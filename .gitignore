@@ -1,0 +1,35 @@
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+
+# Exclude stack.env files that might contain actual credentials
+# (stack.env files in the repo are examples only)
+# If you use actual stack.env files, add them here:
+# stacks/*/stack.env
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Sensitive data
+secrets/
+*.key
+*.pem
+*.crt
+cf_api_token.txt

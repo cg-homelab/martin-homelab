@@ -9,7 +9,7 @@ services:
       - traefik.http.routers.chmod.tls=true
       #- traefik.http.routers.chmod.tls.certresolver=cloudflare
       - traefik.http.routers.chmod.entrypoints=websecure
-      - traefik.http.routers.chmod.rule=Host(`chmod.clenchedgaming.com`)
+      - traefik.http.routers.chmod.rule=Host(`chmod.${DOMAIN_NAME}`)
       #ports:
       #  - 47001:80
     networks:
