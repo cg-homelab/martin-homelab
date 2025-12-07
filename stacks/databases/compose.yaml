@@ -1,28 +1,28 @@
 version: "3.8"
 services:
-  db-pg:
-    container_name: db-pg
-    image: postgres:18.1-alpine
-    restart: always
-    ports:
-      - 5432:5432
-    # set shared memory limit when using docker-compose
-    # shm_size: 2048mb
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: 2G
-    # or set shared memory limit when deploy via swarm stack
-    volumes:
-      #  - type: tmpfs
-      #    target: /dev/shm
-      #    tmpfs:
-      #      size: 134217728 # 128*2^20 bytes = 128Mb
-      - /mnt/fast/databases/postgres:/var/lib/postgresql/data
-    environment:
-      PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+  # db-pg:
+  #   container_name: db-pg
+  #   image: postgres:18.1-alpine
+  #   restart: always
+  #   ports:
+  #     - 5432:5432
+  #   # set shared memory limit when using docker-compose
+  #   # shm_size: 2048mb
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "2.0"
+  #         memory: 2G
+  #   # or set shared memory limit when deploy via swarm stack
+  #   volumes:
+  #     #  - type: tmpfs
+  #     #    target: /dev/shm
+  #     #    tmpfs:
+  #     #      size: 134217728 # 128*2^20 bytes = 128Mb
+  #     - /mnt/fast/databases/postgres:/var/lib/postgresql/data
+  #   environment:
+  #     PGDATA: /var/lib/postgresql/data/pgdata
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   db-ts:
     container_name: db-ts
