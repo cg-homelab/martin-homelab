@@ -1,2 +1,3 @@
 # homelab-compose
-compose
+
+TODO: update this and create one for each stack
