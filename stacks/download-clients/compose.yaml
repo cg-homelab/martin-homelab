@@ -51,7 +51,7 @@ services:
       - "traefik.http.routers.deluge-secure.tls=true"
       - "traefik.http.routers.deluge-secure.entrypoints=websecure"
       - "traefik.http.routers.deluge-secure.rule=Host(`deluge.${DOMAIN_NAME}`)"
-      networks:
+    networks:
       - backend
   docker-nzbgetvpn:
     cap_add:
