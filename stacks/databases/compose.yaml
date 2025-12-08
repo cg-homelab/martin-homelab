@@ -35,12 +35,12 @@ services:
           cpus: "2.0"
           memory: 2G
     environment:
-      POSTGRES_DB: defaultdb
+      PGDATA: /pgdata
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     # ports:
     #   - "5434:5432"
     volumes:
-      - /mnt/fast/databases/timescale:/var/lib/postgresql/data
+      - /mnt/fast/databases/timescale:/pgdata
 
   db-adminer:
     container_name: db-adminer
