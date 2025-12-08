@@ -14,6 +14,13 @@ services:
     ports:
       - 4443:443
     restart: unless-stopped
+    labels:
+      - "traefik.http.routers.adminer-secure.middlewares=authelia@docker"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
 networks:
   default:
     name: homelab

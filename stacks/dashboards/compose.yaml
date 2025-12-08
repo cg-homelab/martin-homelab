@@ -76,6 +76,14 @@ services:
         limits:
           cpus: "1.0"
           memory: 1G
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.entrypoints=web"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.dashboard-secure.tls=true"
+      - "traefik.http.routers.dashboard-secure.entrypoints=websecure"
+      - "traefik.http.routers.dashboard-secure.rule=Host(`dashboard.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.dashboard-secure.middlewares=authelia@docker"
   # UPS Dashboard
   ups-dashboard:
     # Repo https://github.com/Brandawg93/PeaNUT/tree/main
@@ -96,6 +104,7 @@ services:
       - "traefik.http.routers.ups-dashboard-secure.tls=true"
       - "traefik.http.routers.ups-dashboard-secure.entrypoints=websecure"
       - "traefik.http.routers.ups-dashboard-secure.rule=Host(`peanut.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.ups-dashboard-secure.middlewares=authelia@docker"
     networks:
       - frontend
     deploy:

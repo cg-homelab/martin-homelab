@@ -23,6 +23,11 @@ services:
       - "traefik.http.routers.smapi-secure.tls=true"
       - "traefik.http.routers.smapi-secure.entrypoints=websecure"
       - "traefik.http.routers.smapi-secure.rule=Host(`sm-api.${DOMAIN_NAME}`)"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
 networks:
   backend:
     external: true

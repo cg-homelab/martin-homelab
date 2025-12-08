@@ -51,6 +51,12 @@ services:
       - "traefik.http.routers.deluge-secure.tls=true"
       - "traefik.http.routers.deluge-secure.entrypoints=websecure"
       - "traefik.http.routers.deluge-secure.rule=Host(`deluge.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.deluge-secure.middlewares=authelia@docker"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
     networks:
       - backend
   docker-nzbgetvpn:
@@ -91,6 +97,11 @@ services:
       - "traefik.http.routers.nzbget-secure.rule=Host(`nzbget.${DOMAIN_NAME}`)"
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
     restart: unless-stopped
 networks:
   backend:

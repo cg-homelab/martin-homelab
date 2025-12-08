@@ -10,6 +10,7 @@ services:
       - "traefik.http.routers.code-secure.tls=true"
       - "traefik.http.routers.code-secure.entrypoints=websecure"
       - "traefik.http.routers.code-secure.rule=Host(`code.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.code-secure.middlewares=authelia@docker"
     environment:
       - PUID=1000
       - PGID=1000
@@ -29,6 +30,11 @@ services:
     ports:
       - 8443:8443
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
 networks:
   backend:
     external: true

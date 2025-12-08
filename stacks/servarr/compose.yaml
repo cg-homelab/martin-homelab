@@ -139,6 +139,14 @@ services:
       - 8266:8266 # server port
     networks:
       - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tdarr.entrypoints=web"
+      - "traefik.http.routers.tdarr.rule=Host(`tdarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.tdarr-secure.tls=true"
+      - "traefik.http.routers.tdarr-secure.entrypoints=websecure"
+      - "traefik.http.routers.tdarr-secure.rule=Host(`tdarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.tdarr-secure.middlewares=authelia@docker"
     environment:
       - TZ=Europe/London
       - PUID=1000
@@ -168,9 +176,9 @@ services:
               count: all
               capabilities:
                 - gpu
-        # limits:
-        #   cpus: "8.0"
-        #   memory: 4G
+        limits:
+          cpus: "8.0"
+          memory: 4G
 
 networks:
   backend:
