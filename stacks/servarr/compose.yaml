@@ -54,30 +54,30 @@ services:
       - backend
     restart: unless-stopped
   # Book manager
-  readarr:
-    # books
-    image: ghcr.io/linuxserver/readarr:latest
-    container_name: readarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Oslo
-    volumes:
-      - /mnt/fast/appdata/readarr:/config
-      - /mnt/array/media/books:/books #optional
-      - /mnt/array/downloads/:/downloads #optional
-    ports:
-      - 8787:8787
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.readarr.entrypoints=web"
-      - "traefik.http.routers.readarr.rule=Host(`readarr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.readarr-secure.tls=true"
-      - "traefik.http.routers.readarr-secure.entrypoints=websecure"
-      - "traefik.http.routers.readarr-secure.rule=Host(`readarr.${DOMAIN_NAME}`)"
-    networks:
-      - backend
-    restart: unless-stopped
+  # readarr:
+  #   # books
+  #   image: ghcr.io/linuxserver/readarr:latest
+  #   container_name: readarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Europe/Oslo
+  #   volumes:
+  #     - /mnt/fast/appdata/readarr:/config
+  #     - /mnt/array/media/books:/books #optional
+  #     - /mnt/array/downloads/:/downloads #optional
+  #   ports:
+  #     - 8787:8787
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.readarr.entrypoints=web"
+  #     - "traefik.http.routers.readarr.rule=Host(`readarr.${DOMAIN_NAME}`)"
+  #     - "traefik.http.routers.readarr-secure.tls=true"
+  #     - "traefik.http.routers.readarr-secure.entrypoints=websecure"
+  #     - "traefik.http.routers.readarr-secure.rule=Host(`readarr.${DOMAIN_NAME}`)"
+  #   networks:
+  #     - backend
+  #   restart: unless-stopped
   # Movie manager
   radarr:
     # Movies
