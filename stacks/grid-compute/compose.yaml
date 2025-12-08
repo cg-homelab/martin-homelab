@@ -2,7 +2,7 @@ version: "3.8"
 services:
   foldingathome:
     runtime: nvidia
-    image: lscr.io/linuxserver/foldingathome:latest
+    image: ghcr.io/linuxserver/foldingathome:latest
     container_name: foldingathome
     deploy:
       resources:
