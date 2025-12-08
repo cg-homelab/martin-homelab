@@ -60,7 +60,7 @@ services:
       - "traefik.http.routers.adminer-secure.tls=true"
       - "traefik.http.routers.adminer-secure.entrypoints=websecure"
       - "traefik.http.routers.adminer-secure.rule=Host(`adminer.${DOMAIN_NAME}`)"
-      # - "traefik.http.routers.adminer-secure.middlewares=authelia@docker"
+      - "traefik.http.routers.adminer-secure.middlewares=authelia@docker"
 
 networks:
   default:
