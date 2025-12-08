@@ -5,7 +5,7 @@ This stack provides automated media management services (the *arr family).
 ## Services
 
 ### flaresolverr
-- **Image**: `flaresolverr/flaresolverr:latest`
+- **Image**: `ghcr.io/flaresolverr/flaresolverr:latest`
 - **Purpose**: Bypass Cloudflare protection on indexers
 - **Port**: `8191` (default, configurable via `PORT` env var)
 - **Features**:
@@ -14,7 +14,7 @@ This stack provides automated media management services (the *arr family).
   - CAPTCHA solving support
 
 ### overseerr
-- **Image**: `linuxserver/overseerr:latest`
+- **Image**: `ghcr.io/linuxserver/overseerr:latest`
 - **Purpose**: Request management for Plex/Jellyfin
 - **Access**: `https://overseerr.${DOMAIN_NAME}`
 - **Port**: `5055`
@@ -25,7 +25,7 @@ This stack provides automated media management services (the *arr family).
   - Integrates with Sonarr/Radarr
 
 ### prowlarr
-- **Image**: `linuxserver/prowlarr:latest`
+- **Image**: `ghcr.io/linuxserver/prowlarr:latest`
 - **Purpose**: Indexer manager and proxy
 - **Port**: `9696`
 - **Features**:
@@ -34,7 +34,7 @@ This stack provides automated media management services (the *arr family).
   - Built-in indexer search
 
 ### readarr
-- **Image**: `linuxserver/readarr:develop`
+- **Image**: `ghcr.io/linuxserver/readarr:develop`
 - **Purpose**: Book/ebook management
 - **Access**: `https://readarr.${DOMAIN_NAME}`
 - **Port**: `8787`
@@ -44,7 +44,7 @@ This stack provides automated media management services (the *arr family).
   - Integration with download clients
 
 ### radarr
-- **Image**: `linuxserver/radarr:latest`
+- **Image**: `ghcr.io/linuxserver/radarr:latest`
 - **Purpose**: Movie management and automation
 - **Access**: `https://radarr.${DOMAIN_NAME}`
 - **Port**: `7878`
@@ -54,7 +54,7 @@ This stack provides automated media management services (the *arr family).
   - Calendar and notifications
 
 ### sonarr
-- **Image**: `linuxserver/sonarr:latest`
+- **Image**: `ghcr.io/linuxserver/sonarr:latest`
 - **Purpose**: TV series management and automation
 - **Access**: `https://sonarr.${DOMAIN_NAME}`
 - **Port**: `8989`
@@ -64,7 +64,7 @@ This stack provides automated media management services (the *arr family).
   - Quality upgrades
 
 ### tdarr
-- **Image**: `haveagitgat/tdarr:latest`
+- **Image**: `ghcr.io/haveagitgat/tdarr:latest`
 - **Purpose**: Media transcoding and health checking
 - **Ports**: `8265` (web UI), `8266` (server)
 - **Features**:

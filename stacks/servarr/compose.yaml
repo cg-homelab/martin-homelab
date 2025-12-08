@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
   # Handle media requests
   overseerr:
-    image: lscr.io/linuxserver/overseerr:latest
+    image: ghcr.io/linuxserver/overseerr:latest
     container_name: overseerr
     labels:
       - "traefik.enable=true"
@@ -40,7 +40,7 @@ services:
       - backend
   # Index proxy / scanner
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
+    image: ghcr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
       - PUID=1000
@@ -56,7 +56,7 @@ services:
   # Book manager
   readarr:
     # books
-    image: lscr.io/linuxserver/readarr:develop
+    image: ghcr.io/linuxserver/readarr:develop
     container_name: readarr
     environment:
       - PUID=1000
@@ -81,7 +81,7 @@ services:
   # Movie manager
   radarr:
     # Movies
-    image: lscr.io/linuxserver/radarr:latest
+    image: ghcr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
       - PUID=1000
@@ -106,7 +106,7 @@ services:
   # Serie manager
   sonarr:
     # Series
-    image: lscr.io/linuxserver/sonarr:latest
+    image: ghcr.io/linuxserver/sonarr:latest
     container_name: sonarr
     environment:
       - PUID=1000
