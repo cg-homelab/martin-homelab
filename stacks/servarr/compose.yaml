@@ -14,14 +14,6 @@ services:
       - ${PORT:-8191}:8191
     networks:
       - backend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.solverr.entrypoints=web"
-      - "traefik.http.routers.solverr.rule=Host(`solverr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.solverr-secure.tls=true"
-      - "traefik.http.routers.solverr-secure.entrypoints=websecure"
-      - "traefik.http.routers.solverr-secure.rule=Host(`solverr.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.solverr-secure.middlewares=authelia@docker"
     restart: unless-stopped
   # Handle media requests
   overseerr:
@@ -60,6 +52,14 @@ services:
       - 9696:9696
     networks:
       - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prowlarr.entrypoints=web"
+      - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.prowlarr-secure.tls=true"
+      - "traefik.http.routers.prowlarr-secure.entrypoints=websecure"
+      - "traefik.http.routers.prowlarr-secure.rule=Host(`prowlarr.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.prowlarr-secure.middlewares=authelia@docker"
     restart: unless-stopped
   # Book manager
   # readarr:
