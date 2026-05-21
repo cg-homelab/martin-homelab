@@ -104,7 +104,7 @@ services:
       - "traefik.http.routers.ups-dashboard-secure.tls=true"
       - "traefik.http.routers.ups-dashboard-secure.entrypoints=websecure"
       - "traefik.http.routers.ups-dashboard-secure.rule=Host(`peanut.${DOMAIN_NAME}`)"
-      - "traefik.http.routers.ups-dashboard-secure.middlewares=authelia@docker"
+      # - "traefik.http.routers.ups-dashboard-secure.middlewares=authelia@docker"
     networks:
       - frontend
     deploy:
