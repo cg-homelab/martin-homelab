@@ -28,6 +28,29 @@ services:
         limits:
           cpus: "1.0"
           memory: 2G
+  sm-web:
+    image: zevome/smarter-home-web:latest
+    container_name: sm-web
+    restart: unless-stopped
+    ports:
+      - ${FRONTEND_PORT}:80
+    environment:
+      - VITE_API_URL:http://sm-api:${BACKEND_PORT}
+    networks:
+      - frontend
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.smweb.entrypoints=web"
+      - "traefik.http.routers.smweb.rule=Host(`sm-web.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.smweb-secure.tls=true"
+      - "traefik.http.routers.smweb-secure.entrypoints=websecure"
+      - "traefik.http.routers.smweb-secure.rule=Host(`sm-web.${DOMAIN_NAME}`)"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
 networks:
   backend:
     external: true
