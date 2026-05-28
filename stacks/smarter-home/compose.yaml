@@ -33,7 +33,7 @@ services:
     container_name: sm-web
     restart: unless-stopped
     ports:
-      - ${FRONTEND_PORT}:80
+      - ${FRONTEND_PORT}:3000
     environment:
       API_URL: ${BACKEND_URL}
     networks:
