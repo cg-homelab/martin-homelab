@@ -2,6 +2,7 @@
 .env
 .env.local
 .env.*.local
+global.env
 
 # Exclude stack.env files that might contain actual credentials
 # (stack.env files in the repo are examples only)
