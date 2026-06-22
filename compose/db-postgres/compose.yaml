@@ -1,6 +1,6 @@
 services:
   db-postgres:
-    container_name: db-pg
+    container_name: "${SERVICE_NAME}"
     image: postgres:18.1-alpine
     restart: always
     # ports:

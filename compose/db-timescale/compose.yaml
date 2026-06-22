@@ -1,6 +1,6 @@
 services:
   db-timescale:
-    container_name: db-ts
+    container_name: "${SERVICE_NAME}"
     image: timescale/timescaledb-ha:pg17
     restart: unless-stopped
     # shm_size: 2048mb
