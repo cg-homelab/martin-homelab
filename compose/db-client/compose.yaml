@@ -1,0 +1,29 @@
+services:
+  db-adminer:
+    container_name: db-adminer
+    image: adminer
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+    # ports:
+    #   - 3080:8080
+    networks:
+      - databases
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adminer.entrypoints=web"
+      - "traefik.http.routers.adminer.rule=Host(`adminer.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.adminer-secure.tls=true"
+      - "traefik.http.routers.adminer-secure.entrypoints=websecure"
+      - "traefik.http.routers.adminer-secure.rule=Host(`adminer.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.adminer-secure.middlewares=authelia@docker"
+
+networks:
+  proxy:
+    external: true
+  databases:
+    external: true
